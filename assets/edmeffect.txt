@@ -1,0 +1,99 @@
+รายละเอียดโค้ด
+
+Spotlight เปลี่ยนตำแหน่งแบบสุ่มทุก 300ms
+สีของแสงเปลี่ยนไปเรื่อย ๆ (เช่น แดง, เขียว, น้ำเงิน ฯลฯ)
+เอฟเฟกต์กระพริบแบบเร็วเพิ่มพลังงาน
+การปรับแต่ง:
+
+ปรับขนาด Spotlight โดยเปลี่ยน width และ height
+เพิ่มความเร็วหรือช้าลงโดยแก้ไขค่าใน setInterval(moveSpotlights, 300)
+เพิ่มสีเพิ่มเติมในอาร์เรย์ colors เพื่อให้หลากหลายมากขึ้น
+การกระพริบ (Blink Effect):
+
+ใช้ CSS Animation ผ่าน @keyframes blink เพื่อสร้างการกระพริบที่สมจริง
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDM Party Spotlight</title>
+    <style>
+        body {
+            margin: 0;
+            background: black;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        .spotlight {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(0, 0, 0, 0) 80%);
+            border-radius: 50%;
+            pointer-events: none;
+            mix-blend-mode: screen;
+            animation: blink 0.1s infinite;
+        }
+        @keyframes blink {
+            0%, 50%, 100% {
+                opacity: 1;
+            }
+            25%, 75% {
+                opacity: 0.5;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="spotlight" id="spotlight1"></div>
+    <div class="spotlight" id="spotlight2"></div>
+    <div class="spotlight" id="spotlight3"></div>
+    <script>
+        const spotlights = [
+            document.getElementById('spotlight1'),
+            document.getElementById('spotlight2'),
+            document.getElementById('spotlight3')
+        ];
+
+        function randomPosition(element) {
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            element.style.left = `${x}px`;
+            element.style.top = `${y}px`;
+        }
+
+        function randomColor(element) {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ff00ff', '#00ffff', '#ffff00'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            element.style.background = `radial-gradient(circle, ${color} 0%, rgba(0, 0, 0, 0) 80%)`;
+        }
+
+        function moveSpotlights() {
+            spotlights.forEach(spotlight => {
+                randomPosition(spotlight);
+                randomColor(spotlight);
+            });
+        }
+
+        // Change spotlight position and color every 300ms
+        setInterval(moveSpotlights, 300);
+
+        // Initialize spotlights
+        spotlights.forEach(spotlight => {
+            spotlight.style.position = 'absolute';
+            randomPosition(spotlight);
+            randomColor(spotlight);
+        });
+
+        // Resize handling
+        window.addEventListener('resize', () => {
+            spotlights.forEach(spotlight => {
+                randomPosition(spotlight);
+            });
+        });
+    </script>
+</body>
+</html>
