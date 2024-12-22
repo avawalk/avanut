@@ -1,33 +1,30 @@
-let ava_stages = [
-  './assets/AVA_Stage0_Normal.jpeg',
-  './assets/AVA_Stage1.jpeg',
-  './assets/AVA_Stage2_100Pointup.jpeg',
-  './assets/AVA_Stage3_500Pointup.jpeg',
-];
 let _$_c_0_r_E_ = 0;
 
-function render_score() {
+// render
+function update_score() {
   $('.score').html('SCORE:' + _$_c_0_r_E_);
 }
-function render_ava() {
-  let src = './assets/AVA_Stage0_Normal.jpeg'; // close mouth
-  if ((_$_c_0_r_E_ % 2) == 1) { // open mouth
-    if (_$_c_0_r_E_ >= 500)
-      src = './assets/AVA_Stage3_500Pointup.jpeg';
-    else if (_$_c_0_r_E_ >= 100)
-      src = './assets/AVA_Stage2_100Pointup.jpeg';
-    else
-      src = './assets/AVA_Stage1.jpeg';
-  }
+function open_mouth() {
+  let src = './assets/AVA_Stage1.jpeg'
+  if (_$_c_0_r_E_ >= 500)
+    src = './assets/AVA_Stage3_500Pointup.jpeg';
+  else if (_$_c_0_r_E_ >= 100)
+    src = './assets/AVA_Stage2_100Pointup.jpeg';
   $('.ava').attr('src', src);
 }
+function close_mouth() {
+  $('.ava').attr('src', './assets/AVA_Stage0_Normal.jpeg');
+}
 
-// ava event
-$('.ava').click(_ => {
+// ava events
+$('.ava').on('touchstart mousedown', _ => {
   _$_c_0_r_E_++;
-  render_score();
-  render_ava();
+  update_score();
+  open_mouth();
+});
+$('.ava').on('touchend mouseup', _ => {
+  close_mouth();
 });
 
 // main
-render_score();
+update_score();
