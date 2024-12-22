@@ -17,12 +17,12 @@ function close_mouth() {
 }
 
 // ava events
-$('.ava').on('touchstart mousedown', _ => {
+$('.ava').on('pointerdown', _ => {
   _$_c_0_r_E_++;
   update_score();
   open_mouth();
 });
-$('.ava').on('touchend mouseup', _ => {
+$('.ava').on('pointerup', _ => {
   close_mouth();
 });
 
