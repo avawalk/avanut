@@ -1,0 +1,18 @@
+html, body {
+  font-family: "Press Start 2P";
+}
+body {
+  margin: 0;
+  height: 100vh;
+  background-image: url('./assets/avanut_BG.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* responsive ava */
+.ava {
+  width: 100%;
+  cursor: pointer;
+}
+@media (min-width: 600px) { .ava { width: 600px; } }
