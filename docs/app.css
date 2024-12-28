@@ -1,9 +1,10 @@
 html, body {
   font-family: "Press Start 2P";
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
 }
 body {
-  margin: 0;
-  height: 100vh;
   background-image: url('./assets/avanut_BG.png');
   background-size: cover;
   background-position: center;
@@ -19,7 +20,7 @@ body {
 .avarun {
   position: absolute;
   top: 10px;
-  left: 10px;
+  left: 0px;
 }
 .avarun img {
   width: 75px;
@@ -35,10 +36,21 @@ body {
   margin-left: 5px;
 }
 
+/* credit */
+.credit {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  width: 250px;
+}
+
 /* responsive */
 @media (min-width: 600px) {
   .ava {
     width: 600px;
+  }
+  .avarun {
+    left: 10px;
   }
   .avarun img {
     width: 150px;
