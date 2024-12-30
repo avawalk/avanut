@@ -16,11 +16,21 @@ function close_mouth() {
   $('.ava').attr('src', './assets/AVA_Stage0_Normal.jpeg');
 }
 
+// sound effect
+function play_effect() {
+  let audio = new Audio('./assets/crack_co.wav');
+  audio.addEventListener('ended', () => {
+    audio.src = '';
+  });
+  audio.play();
+}
+
 // ava events
 $('.ava').on('pointerdown', _ => {
   _$_c_0_r_E_++;
   update_score();
   open_mouth();
+  play_effect();
   if (first_time_autoplay) {
     console.log('first time autoplay music');
     play_new_song();
