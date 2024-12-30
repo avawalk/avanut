@@ -18,7 +18,7 @@ function close_mouth() {
 
 // sound effect
 function play_effect() {
-  let audio = new Audio('./assets/crack_co.wav');
+  let audio = new Audio('https://avawalk.github.io/avanut/assets/crack_co2.wav');
   audio.addEventListener('ended', () => {
     audio.src = '';
   });
