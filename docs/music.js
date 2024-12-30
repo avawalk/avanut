@@ -27,6 +27,9 @@ let playlist = {
 let aud = $('#ava_song')[0];
 let song_mode = 'edm';
 let song_idx = 0;
+aud.addEventListener('play', _ => {
+  first_time_autoplay = false;
+});
 aud.addEventListener('ended', _ => {
   song_idx++;
   if (song_idx >= playlist[song_mode].length) song_idx = 0;

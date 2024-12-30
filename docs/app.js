@@ -21,6 +21,10 @@ $('.ava').on('pointerdown', _ => {
   _$_c_0_r_E_++;
   update_score();
   open_mouth();
+  if (first_time_autoplay) {
+    console.log('first time autoplay music');
+    play_new_song();
+  }
 });
 $('.ava').on('pointerup', _ => {
   close_mouth();
