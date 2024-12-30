@@ -26,5 +26,20 @@ $('.ava').on('pointerup', _ => {
   close_mouth();
 });
 
+// music panel
+function click_outside_panel(evt) {
+  console.log('check click outside panel..');
+  if (!$(evt.target).closest('.bgm.panel').length) {
+    $('.bgm.compact').removeClass('d-none');
+    $('.bgm.panel').addClass('d-none');
+    $('.container-fluid').off('click', click_outside_panel);
+  }
+}
+$('.bgm.compact').click(evt => {
+  $('.bgm.compact').addClass('d-none');
+  $('.bgm.panel').removeClass('d-none');
+  $('.container-fluid').on('click', click_outside_panel);
+});
+
 // main
 update_score();

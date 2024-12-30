@@ -10,6 +10,9 @@ body {
   background-position: center;
   background-repeat: no-repeat;
 }
+.container-fluid {
+  height: 100%;
+}
 
 .ava {
   width: 100%;
@@ -34,6 +37,44 @@ body {
 .links img {
   width: 25px;
   margin-left: 5px;
+}
+
+/* bgm  */
+.bgm {
+  z-index: 5;
+  position: fixed;
+  right: 0px;
+  bottom: 10px;
+  width: 100px;
+  background-color: #FFF;
+  text-align: center;
+  padding: 10px;
+  border-radius: 20px 0px 0px 20px;
+  cursor: pointer;
+  box-shadow: -3px 3px 5px rgba(0, 0, 0, 0.5);
+}
+.bgm img {
+  width: 35px;
+}
+.compact img {
+  margin-bottom: 10px;
+}
+.panel {
+  bottom: 10px;
+  width: 300px;
+}
+.panel .title {
+  text-align: right;
+}
+.panel .sound {
+  margin: 10px 0px;
+}
+.panel .track {
+  border: 1px solid #000;
+  margin-top: 10px;
+}
+.panel .active {
+  text-decoration: underline;
 }
 
 /* credit */
@@ -61,5 +102,13 @@ body {
   .links img {
     width: 50px;
     margin-left: 10px;
+  }
+  .bgm {
+    top: 40%;
+    bottom: auto;
+  }
+  .panel {
+    top: 35%;
+    bottom: auto;
   }
 }
