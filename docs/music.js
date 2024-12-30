@@ -98,6 +98,7 @@ $('.mode div').click(_ => {
   song_mode = new_mode;
   song_idx = 0;
   // active new mode
+  $('.bgm.compact div').html(new_mode.toUpperCase());
   $('.mode div').removeClass('active');
   $thz.addClass('active');
   // active first track
