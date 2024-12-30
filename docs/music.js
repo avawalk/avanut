@@ -37,14 +37,18 @@ aud.addEventListener('ended', _ => {
 function get_song_path(mode, idx) {
   return playlist.host + playlist[mode][idx];
 }
-function play_new_song() {
+function play_new_song(autoplay=true) {
   aud.src = get_song_path(song_mode, song_idx);
   aud.load();
-  aud.play();
+  if (autoplay) {
+    aud.play();
+    update_music_icon();
+  }
 }
 
 // play default song
-play_new_song();
+play_new_song(false);
+// NotAllowedError: play() failed because the user didn't interact with the document first. https://goo.gl/xX8pDD
 
 // panel
 function update_music_icon() {
