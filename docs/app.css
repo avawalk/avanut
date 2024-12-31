@@ -125,6 +125,29 @@ body {
   width: 250px;
 }
 
+/* leaderboard */
+.board-min {
+  z-index: 4;
+  background-color: #fff;
+  position: fixed;
+  bottom: 0px;
+  width: 800px;
+  left: 50%;
+  transform: translate(-50%);
+  padding: 10px;
+  border-radius: 10px 10px 0px 0px;
+  box-shadow: 0px -1px 3px rgba(0, 0, 0, 0.3);
+}
+.board-min .trophy {
+  border-right: 1px solid #999;
+}
+.board-min .trophy img {
+  height: 20px;
+}
+.board-min .up-arrow {
+  border-left: 1px solid #999;
+}
+
 /* responsive */
 @media (min-width: 600px) {
   .ava {
