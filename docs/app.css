@@ -6,18 +6,53 @@ html, body {
   cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABFklEQVRYR9WXURLDIAhE6/0PbSdOtUpcd1Gnpv1KGpTHBpCE1/cXq+vrMph7dGvXZTtpfW10DCA5jrH1H0Jhs5E0hnZdCR+vb5S8Nn8mQCeS9BdSalYJqMBjAGzq59xAESN7VFVUgV8AZB/dZBR7QTFDCqGquvUBVVoEtgIwpQRzmANSFHgWQKExHdIrPeuMvQNDarXe6nC/AutgV3JW+6bgqQLeV8FekRtgV+ToDKEKnACYKsfZjjkam7a0ZpYTytwmgainpC3HvwBocgKOxqRjehoR9DFKNFYtOwCGYCszobeCbl26N6yyQ6g8X/Wex/rBPsNEV6qAMaJPMynIHQCoSqS9JSMmwef51LflTgCRszU7DvAGiV6mHWfsaVUAAAAASUVORK5CYII=),auto;
 }
 body {
+  overflow: hidden;
   background-image: url('./assets/avanut_BG.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 .container-fluid {
+  z-index: 3;
+  position: relative;
   height: 100%;
 }
 
 .ava {
   width: 100%;
   /*cursor: pointer;*/
+}
+
+/* effects */
+#effect {
+  z-index: 2;
+  position: absolute;
+  display: block;
+  left: 0px;
+  top: 0px;
+}
+.spotlight {
+  z-index: 2;
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(0, 0, 0, 0) 80%);
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  animation: blink 0.1s infinite;
+}
+.spotlight.paused {
+  animation-play-state: paused;
+}
+@keyframes blink {
+  0%, 50%, 100% {
+    opacity: 1;
+  }
+  25%, 75% {
+    opacity: 0.5;
+  }
 }
 
 /* links */
@@ -80,6 +115,7 @@ body {
 
 /* credit */
 .credit {
+  z-index: 4;
   position: fixed;
   right: 10px;
   bottom: 10px;

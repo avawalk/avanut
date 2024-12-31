@@ -53,6 +53,39 @@ function play_new_song(autoplay=true) {
 play_new_song(false);
 // NotAllowedError: play() failed because the user didn't interact with the document first. https://goo.gl/xX8pDD
 
+// effect
+let effect_started = false;
+function start_effect() {
+  if (effect_started) return;
+  effect_started = true;
+  switch(song_mode) {
+    case 'edm':
+      startEDM();
+      break;
+    case 'fight':
+      startFire();
+      break;
+    case 'snow':
+      startSnowflakes();
+      break;
+  }
+}
+function stop_effect() {
+  if (!effect_started) return;
+  effect_started = false;
+  switch(song_mode) {
+    case 'edm':
+      stopEDM();
+      break;
+    case 'fight':
+      stopFire();
+      break;
+    case 'snow':
+      stopSnowflakes();
+      break;
+  }
+}
+
 // panel
 function update_music_icon() {
   let compact_img = 'musical-note';
@@ -87,16 +120,20 @@ $('.sound div').eq(0).click(_ => {
   if (aud.paused) return;
   aud.pause();
   update_music_icon();
+  stop_effect();
 });
 $('.sound div').eq(1).click(_ => {
   if (!aud.paused) return;
   aud.play();
   update_music_icon();
+  start_effect();
 });
 $('.mode div').click(_ => {
   let $thz = $(_.target);
   let new_mode = $thz.text().toLowerCase();
   if (new_mode == song_mode) return;
+  // stop old effect
+  stop_effect();
   // set first song of that mode
   song_mode = new_mode;
   song_idx = 0;
@@ -108,6 +145,8 @@ $('.mode div').click(_ => {
   update_current_track();
   // play song
   play_new_song();
+  // start new effect
+  start_effect();
 });
 $('.track span').click(_ => {
   let $thz = $(_.target);
@@ -119,4 +158,6 @@ $('.track span').click(_ => {
   update_current_track();
   // play song
   play_new_song();
+  // start effect (if need)
+  start_effect();
 });
