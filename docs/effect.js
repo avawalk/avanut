@@ -77,7 +77,7 @@ class Particle {
         this.x = x;
         this.y = y;
         this.size = Math.random() * 5 + 1;
-        this.speedY = Math.random() * -2 - 1;
+        this.speedY = Math.random() * -8 - 1 //-2 - 1;
         this.speedX = (Math.random() - 0.5) * 2;
         this.color = `rgba(${Math.random() * 255}, ${Math.random() * 50}, 0, ${Math.random() * 0.5 + 0.5})`;
         this.life = Math.random() * 100 + 50;
@@ -103,8 +103,8 @@ class Particle {
 }
 
 function createParticle() {
-    const x = canvas.width / 2 + (Math.random() - 0.5) * 100;
-    const y = canvas.height - 50;
+    const x = canvas.width / 2 + (Math.random() - 0.5) * canvas.width //100;
+    const y = canvas.height //- 50;
     particles.push(new Particle(x, y));
 }
 
