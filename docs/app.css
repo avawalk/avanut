@@ -58,6 +58,7 @@ body {
 
 /* links */
 .avarun {
+  z-index: 4;
   position: absolute;
   top: 10px;
   left: 0px;
@@ -66,6 +67,7 @@ body {
   width: 75px;
 }
 .links {
+  z-index: 4;
   position: absolute;
   top: 10px;
   right: 10px;

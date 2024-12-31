@@ -33,8 +33,7 @@ $('.ava').on('pointerdown', _ => {
   play_effect();
   if (first_time_autoplay) {
     console.log('first time autoplay music');
-    play_new_song();
-    start_effect();
+    play_new_song(true, start_effect);
   }
 });
 $('.ava').on('pointerup', _ => {

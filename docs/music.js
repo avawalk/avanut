@@ -40,13 +40,16 @@ aud.addEventListener('ended', _ => {
 function get_song_path(mode, idx) {
   return playlist.host + playlist[mode][idx];
 }
-function play_new_song(autoplay=true) {
+function play_new_song(autoplay=true, callback=null) {
   aud.src = get_song_path(song_mode, song_idx);
   aud.load();
-  if (autoplay) {
-    aud.play();
+  if (!autoplay) return;
+  let promise = aud.play();
+  if (promise === undefined) return;
+  promise.then(_ => {
     update_music_icon();
-  }
+    if (callback) callback();
+  });
 }
 
 // play default song
