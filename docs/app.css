@@ -130,10 +130,8 @@ body {
   z-index: 4;
   background-color: #fff;
   position: fixed;
-  bottom: -312px; /*0px;*/
-  width: 800px;
-  left: 50%;
-  transform: translate(-50%);
+  bottom: -576px;
+  width: 100%;
   padding: 10px;
   border-radius: 10px 10px 0px 0px;
   box-shadow: 0px -1px 3px rgba(0, 0, 0, 0.3);
@@ -141,14 +139,8 @@ body {
 .board .row {
   padding: 2px 0px;
 }
-.board .trophy {
-  border-right: 1px solid #999;
-}
 .board .trophy img {
   height: 20px;
-}
-.board .up-arrow {
-  border-left: 1px solid #999;
 }
 .board .gold {
   background-color: gold;
@@ -185,5 +177,17 @@ body {
   .panel {
     top: 35%;
     bottom: auto;
+  }
+  .board {
+    bottom: -312px;
+    width: 800px;
+    left: 50%;
+    transform: translate(-50%);
+  }
+  .board .trophy {
+    border-right: 1px solid #999;
+  }
+  .board .up-arrow {
+    border-left: 1px solid #999;
   }
 }
