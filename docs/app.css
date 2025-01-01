@@ -121,7 +121,7 @@ body {
   z-index: 4;
   position: fixed;
   right: 10px;
-  bottom: 10px;
+  bottom: 20px;
   width: 250px;
 }
 
@@ -130,7 +130,7 @@ body {
   z-index: 4;
   background-color: #fff;
   position: fixed;
-  bottom: 0px;
+  bottom: -312px; /*0px;*/
   width: 800px;
   left: 50%;
   transform: translate(-50%);

@@ -40,5 +40,40 @@ $('.ava').on('pointerup', _ => {
   close_mouth();
 });
 
+// leaderboard
+function move_board(bottom, speed=500, callback) {
+  $('.board').animate({ bottom: bottom + 'px' }, speed);
+}
+function collapse_board() {
+  let gap = $('.board .head .col').eq(0).height();
+  let bottom = '-' + ($('.board').height()-gap);
+  move_board(bottom, _ => {
+    $('.board .head').html(`
+    <div class='col-1 trophy text-center'><img src='./assets/trophy.png'></div>
+    <div class='col'>#1 <span class="fi fi-th"></span> 124.2B</div>
+    <div class='col'>#2 <span class="fi fi-hk"></span> 124.2B</div>
+    <div class='col'>#3 <span class="fi fi-tw"></span> 124.2B</div>
+    <div class='col-1 up-arrow text-center'><i class="bi bi-chevron-up"></i></div>
+    `);
+  });
+}
+function expand_board() {
+  move_board(0, _ => {
+    $('.board .head').html(`
+    <div class='col-1 trophy text-center'><img src='./assets/trophy.png'></div>
+    <div class='col text-center'>Leaderboard</div>
+    <div class='col-1 up-arrow text-center'><i class="bi bi-chevron-down"></i></div>
+    `);
+  });
+}
+function toggle_board() {
+  let expanded = $('.board').css('bottom') === '0px';
+  if (expanded)
+    collapse_board();
+  else
+    expand_board();
+}
+$('body').on('click', '.board', toggle_board);
+
 // main
 update_score();
