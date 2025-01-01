@@ -126,7 +126,7 @@ body {
 }
 
 /* leaderboard */
-.board-min {
+.board {
   z-index: 4;
   background-color: #fff;
   position: fixed;
@@ -138,14 +138,26 @@ body {
   border-radius: 10px 10px 0px 0px;
   box-shadow: 0px -1px 3px rgba(0, 0, 0, 0.3);
 }
-.board-min .trophy {
+.board .row {
+  padding: 2px 0px;
+}
+.board .trophy {
   border-right: 1px solid #999;
 }
-.board-min .trophy img {
+.board .trophy img {
   height: 20px;
 }
-.board-min .up-arrow {
+.board .up-arrow {
   border-left: 1px solid #999;
+}
+.board .gold {
+  background-color: gold;
+}
+.board .silver {
+  background-color: silver;
+}
+.board .bronze {
+  background-color: #cd7f32;
 }
 
 /* responsive */
