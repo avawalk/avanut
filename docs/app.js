@@ -1,5 +1,8 @@
 let _$_c_0_r_E_ = 0;
 let submitted_score = 0;
+let dev_mode = false;
+let endpoint = (dev_mode ? '../../avarun/docs' : '..') + '/apis/nut.php';
+let ranks = Array(10).fill({code: 'AVA', plays: 0, score: 0});
 
 // render
 function update_score() {
@@ -43,11 +46,10 @@ $('.ava').on('pointerup', _ => {
 
 // leaderboard
 function render_board_head() {
+  let html = ranks.slice(0, 3).map((r, i) => `<div class='col d-none d-md-block'>#${i+1} <span class="fi fi-${r.code.toLowerCase()}"></span> ${r.score}</div>`).join('');
   $('.board .head').html(`
   <div class='col-1 trophy text-center'><img src='./assets/trophy.png'></div>
-  <div class='col d-none d-md-block'>#1 <span class="fi fi-th"></span> 124.2B</div>
-  <div class='col d-none d-md-block'>#2 <span class="fi fi-hk"></span> 124.2B</div>
-  <div class='col d-none d-md-block'>#3 <span class="fi fi-tw"></span> 124.2B</div>
+  ${html}
   <div class='col d-block d-md-none text-center'>Leaderboard</div>
   <div class='col-1 up-arrow text-center'><i class="bi bi-chevron-up"></i></div>
   `);
@@ -80,10 +82,7 @@ function toggle_board() {
 }
 $('body').on('click', '.board', toggle_board);
 
-// submit bot
-//let endpoint = '../../avarun/docs/apis/nut.php';
-//function submit_score_daemon(min=0, start=0, range=5) {
-let endpoint = '../apis/nut.php';
+// apis
 function submit_score_daemon(min=20, start=30, range=30) {
   let random_interval = start + Math.floor(Math.random() * range+1);
   setTimeout(_ => {
@@ -101,8 +100,35 @@ function submit_score_daemon(min=20, start=30, range=30) {
     submit_score_daemon();
   }, random_interval * 1_000);
 }
+function load_scoreboard(callback) {
+  $.getJSON(endpoint, resp => {
+    // update data
+    let rows = resp.data || [];
+    rows.forEach((r, i) => ranks[i] = r);
+    // render scoreboard
+    $('.board').html(`<div class='head row'></div>`);
+    ranks.forEach((r, i) => {
+      // TODO add world row + show click per sec
+      // TODO ava flag
+      // TODO gold, silver, bronze class
+      let country = r.code; // TODO resolve country name
+      let flag = 'fi-' + r.code.toLowerCase();
+      let zcore = r.score; // TODO format number
+      $('.board').append(`
+      <div class='row'>
+        <div class='col-1 text-center'>${i+1}</div>
+        <div class='col'><span class="fi ${flag}"></span> ${country}</div>
+        <div class='col-sm text-end'>${zcore}</div>
+      </div>
+      `);
+    });
+    callback();
+  });
+}
 
 // main
 update_score();
-render_board_head();
-submit_score_daemon();
+load_scoreboard(_ => {
+  render_board_head();
+  submit_score_daemon();
+});

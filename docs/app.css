@@ -130,7 +130,7 @@ body {
   z-index: 4;
   background-color: #fff;
   position: fixed;
-  bottom: -576px;
+  bottom: -524px; /* TODO re-adjust after world row */
   width: 100%;
   padding: 10px;
   border-radius: 10px 10px 0px 0px;
@@ -179,7 +179,7 @@ body {
     bottom: auto;
   }
   .board {
-    bottom: -312px;
+    bottom: -284px; /* TODO re-adjust after world row */
     width: 800px;
     left: 50%;
     transform: translate(-50%);
