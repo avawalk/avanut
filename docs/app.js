@@ -45,11 +45,25 @@ $('.ava').on('pointerup', _ => {
 });
 
 // leaderboard
+function resolve_flag(code) {
+  return (code == 'AVA') ? '🐯' : `<span class="fi fi-${code.toLowerCase()}"></span>`;
+}
 function render_board_head() {
-  let html = ranks.slice(0, 3).map((r, i) => `<div class='col d-none d-md-block'>#${i+1} <span class="fi fi-${r.code.toLowerCase()}"></span> ${r.score}</div>`).join('');
+  let top3 = ranks.slice(0, 3).map((r, i) => {
+    let flag = resolve_flag(r.code);
+    let zcore = r.score;
+    if (zcore > 1_000_000_000)
+      zcore = (zcore / 1_000_000_000).toFixed(1) + 'B'
+    else if (zcore > 1_000_000)
+      zcore = (zcore / 1_000_000).toFixed(1) + 'M'
+    else if (zcore > 1_000)
+      zcore = (zcore / 1_000).toFixed(1) + 'K'
+    zcore = zcore.toString().replace('.0', ''); // clean up
+    return `<div class='col d-none d-md-block'>#${i+1} ${flag} ${zcore}</div>`
+  }).join('');
   $('.board .head').html(`
   <div class='col-1 trophy text-center'><img src='./assets/trophy.png'></div>
-  ${html}
+  ${top3}
   <div class='col d-block d-md-none text-center'>Leaderboard</div>
   <div class='col-1 up-arrow text-center'><i class="bi bi-chevron-up"></i></div>
   `);
@@ -106,22 +120,38 @@ function load_scoreboard(callback) {
     let rows = resp.data || [];
     rows.forEach((r, i) => ranks[i] = r);
     // render scoreboard
-    $('.board').html(`<div class='head row'></div>`);
+    $('.board').html(`
+      <div class='head row'></div>
+      <div class='world row'></div>
+    `);
     ranks.forEach((r, i) => {
-      // TODO add world row + show click per sec
-      // TODO ava flag
-      // TODO gold, silver, bronze class
-      let country = r.code; // TODO resolve country name
-      let flag = 'fi-' + r.code.toLowerCase();
-      let zcore = r.score; // TODO format number
+      let [ country, _, __ ] = COUNTRIES.find(c => c[1] == r.code);
+      let flag = resolve_flag(r.code);
+      let zcore = r.score.toLocaleString('en-US');
       $('.board').append(`
-      <div class='row'>
+      <div class='row no${i+1}'>
         <div class='col-1 text-center'>${i+1}</div>
-        <div class='col'><span class="fi ${flag}"></span> ${country}</div>
+        <div class='col'>${flag} ${country}</div>
         <div class='col-sm text-end'>${zcore}</div>
       </div>
       `);
     });
+    // add world row + show click per sec
+    $.getJSON(endpoint + '?q=sum', resp2 => {
+      let info = resp2.data || {};
+      let life_in_sec = +(info.life_in_seconds || 0);
+      let sum_clicks = +(info.sum_score || 0);
+      let cps = (life_in_sec > 0) ? sum_clicks / life_in_sec : 0;
+      let cps_html = '';
+      if (cps > 0.1) cps_html = ` <span class='text-success'>${cps.toFixed(1)} CPS</span>`;
+      console.log('CPS:', cps);
+      $('.world.row').html(`
+        <div class='col-1 text-center'>🌎</div>
+        <div class='col'>Worldwide${cps_html}</div>
+        <div class='col-sm text-end'>${sum_clicks.toLocaleString('en-US')}</div>
+      `);
+    });
+    // render finish callback
     callback();
   });
 }

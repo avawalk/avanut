@@ -130,7 +130,7 @@ body {
   z-index: 4;
   background-color: #fff;
   position: fixed;
-  bottom: -524px; /* TODO re-adjust after world row */
+  bottom: -576px;
   width: 100%;
   padding: 10px;
   border-radius: 10px 10px 0px 0px;
@@ -142,13 +142,13 @@ body {
 .board .trophy img {
   height: 20px;
 }
-.board .gold {
+.board .no1 {
   background-color: gold;
 }
-.board .silver {
+.board .no2 {
   background-color: silver;
 }
-.board .bronze {
+.board .no3 {
   background-color: #cd7f32;
 }
 
@@ -179,7 +179,7 @@ body {
     bottom: auto;
   }
   .board {
-    bottom: -284px; /* TODO re-adjust after world row */
+    bottom: -312px;
     width: 800px;
     left: 50%;
     transform: translate(-50%);
