@@ -23,6 +23,9 @@ let playlist = {
   ],
 }
 
+// version
+let version = '0.0.0';
+
 // audio
 let aud = $('#ava_song')[0];
 let song_mode = 'edm';
@@ -38,7 +41,7 @@ aud.addEventListener('ended', _ => {
   update_current_track();
 });
 function get_song_path(mode, idx) {
-  return playlist.host + playlist[mode][idx];
+  return playlist.host + playlist[mode][idx] + '?v=' + version;
 }
 function play_new_song(autoplay=true, callback=null) {
   aud.src = get_song_path(song_mode, song_idx);
@@ -53,8 +56,12 @@ function play_new_song(autoplay=true, callback=null) {
 }
 
 // play default song
-play_new_song(false);
 // NotAllowedError: play() failed because the user didn't interact with the document first. https://goo.gl/xX8pDD
+$.getJSON(playlist.host + 'meta.json', data => {
+  let meta = data || {};
+  version = meta.version || version;
+  play_new_song(false);
+});
 
 // effect
 let effect_started = false;
