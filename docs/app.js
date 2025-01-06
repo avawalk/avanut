@@ -1,4 +1,5 @@
 let _$_c_0_r_E_ = 0;
+let submitted_score = 0;
 
 // render
 function update_score() {
@@ -79,6 +80,29 @@ function toggle_board() {
 }
 $('body').on('click', '.board', toggle_board);
 
+// submit bot
+//let endpoint = '../../avarun/docs/apis/nut.php';
+//function submit_score_daemon(min=0, start=0, range=5) {
+let endpoint = '../apis/nut.php';
+function submit_score_daemon(min=20, start=30, range=30) {
+  let random_interval = start + Math.floor(Math.random() * range+1);
+  setTimeout(_ => {
+    let new_score = _$_c_0_r_E_ - submitted_score;
+    if (new_score > min) {
+      let code = localStorage.getItem('AVA_FLAG') || 'AVA';
+      let score = new_score;
+      let secret = 'DONTHACKMENABRO';
+      console.log(`add ${score} scores for ${code}`);
+      $.post(endpoint,
+        { code: code, score: score, secret: secret },
+        resp => { if (resp.success) submitted_score = _$_c_0_r_E_; }
+      );
+    }
+    submit_score_daemon();
+  }, random_interval * 1_000);
+}
+
 // main
 update_score();
 render_board_head();
+submit_score_daemon();
