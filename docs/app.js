@@ -1,8 +1,9 @@
 let _$_c_0_r_E_ = 0;
 let submitted_score = 0;
-let dev_mode = false;
+let dev_mode = location.hostname == 'localhost';
 let endpoint = (dev_mode ? '../../avarun/docs' : '..') + '/apis/nut.php';
 let ranks = Array(10).fill({code: 'AVA', plays: 0, score: 0});
+let save_flag = localStorage.getItem('AVA_FLAG') || 'AVA';
 
 // render
 function update_score() {
@@ -79,10 +80,15 @@ function collapse_board() {
   });
 }
 function expand_board() {
+  let html = COUNTRIES.map(r => {
+    let [ title, code, flag ] = r;
+    let sel = code == save_flag ? 'selected' : '';
+    return `<option value='${code}' ${sel}>${title} ${flag}</option>`;
+  }).join('');
   move_board(0, _ => {
     $('.board .head').html(`
     <div class='col-1 trophy text-center'><img src='./assets/trophy.png'></div>
-    <div class='col text-center'>Leaderboard</div>
+    <div class='col'><select class='w-100' id='country'>${html}</select></div>
     <div class='col-1 up-arrow text-center'><i class="bi bi-chevron-down"></i></div>
     `);
   });
@@ -95,6 +101,8 @@ function toggle_board() {
     expand_board();
 }
 $('body').on('click', '.board', toggle_board);
+$('body').on('click', '#country', evt => { evt.stopPropagation(); });
+$('body').on('change', '#country', evt => { localStorage.setItem('AVA_FLAG', evt.target.value); });
 
 // apis
 function submit_score_daemon(min=20, start=30, range=30) {
