@@ -121,8 +121,8 @@ body {
   z-index: 4;
   position: fixed;
   right: 10px;
-  bottom: 20px;
-  width: 250px;
+  bottom: 30px;
+  width: 180px;
 }
 
 /* leaderboard */
@@ -189,5 +189,11 @@ body {
   }
   .board .up-arrow {
     border-left: 1px solid #999;
+  }
+}
+@media (min-width: 768px) {
+  .credit {
+    bottom: 20px;
+    width: 250px;
   }
 }
