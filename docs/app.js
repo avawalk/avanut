@@ -3,7 +3,6 @@ let submitted_score = 0;
 let dev_mode = location.hostname == 'localhost';
 let endpoint = (dev_mode ? '../../avarun/docs' : '..') + '/apis/nut.php';
 let ranks = Array(10).fill({code: 'AVA', plays: 0, score: 0});
-let save_flag = localStorage.getItem('AVA_FLAG') || 'AVA';
 
 // render
 function update_score() {
@@ -80,6 +79,7 @@ function collapse_board() {
   });
 }
 function expand_board() {
+  let save_flag = localStorage.getItem('AVA_FLAG') || 'AVA';
   let html = COUNTRIES.map(r => {
     let [ title, code, flag ] = r;
     let sel = code == save_flag ? 'selected' : '';
