@@ -3,21 +3,38 @@ let submitted_score = 0;
 let dev_mode = location.hostname == 'localhost';
 let endpoint = (dev_mode ? '../../avarun/docs' : '..') + '/apis/nut.php';
 let ranks = Array(10).fill({code: 'AVA', plays: 0, score: 0});
+let ava_imgs = [
+  './assets/AVA_Stage0_Normal.jpeg',
+  './assets/AVA_Stage1.jpeg',
+  './assets/AVA_Stage2_100Pointup.jpeg',
+  './assets/AVA_Stage3_500Pointup.jpeg',
+];
 
 // render
 function update_score() {
   $('.score').html('SCORE:' + _$_c_0_r_E_);
 }
 function open_mouth() {
-  let src = './assets/AVA_Stage1.jpeg'
+  let src = ava_imgs[1];
   if (_$_c_0_r_E_ >= 500)
-    src = './assets/AVA_Stage3_500Pointup.jpeg';
+    src = ava_imgs[3];
   else if (_$_c_0_r_E_ >= 100)
-    src = './assets/AVA_Stage2_100Pointup.jpeg';
+    src = ava_imgs[2];
   $('.ava').attr('src', src);
 }
 function close_mouth() {
-  $('.ava').attr('src', './assets/AVA_Stage0_Normal.jpeg');
+  $('.ava').attr('src', ava_imgs[0]);
+}
+function preload_imgs() {
+  ava_imgs.forEach(src => {
+    let img = new Image();
+    img.onload = _ => {
+      console.log('preload', src, 'ok');
+      img.src = '';
+      img = null;
+    }
+    img.src = src;
+  });
 }
 
 // sound effect
@@ -165,6 +182,7 @@ function load_scoreboard(callback) {
 }
 
 // main
+preload_imgs();
 update_score();
 load_scoreboard(_ => {
   render_board_head();
