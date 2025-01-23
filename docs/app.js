@@ -60,6 +60,10 @@ $('.ava').on('pointerdown', _ => {
 $('.ava').on('pointerup', _ => {
   close_mouth();
 });
+$('.ava').on('dragstart touchmove', evt => {
+  evt.preventDefault();
+  close_mouth();
+});
 
 // leaderboard
 function resolve_flag(code) {
